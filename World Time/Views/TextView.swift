@@ -15,7 +15,7 @@ struct RoundedeRectText: View {
       .font(.headline)
       .overlay(
         RoundedRectangle(cornerRadius: 10)
-          .stroke(lineWidth: 1.0)
+          .strokeBorder(Color("StrokeColor"), lineWidth: 1.0)
           .frame(width: 124, height: 39)
       )
   }
@@ -27,6 +27,7 @@ struct SmallTextSemiBold: View {
   var body: some View {
     Text(text)
       .font(.headline)
+      .foregroundColor(Color("TextColor"))
   }
 }
 
@@ -42,11 +43,14 @@ struct SmallText: View {
 
 struct MainText: View {
   var text: String
+  var color: String
+  
   
   var body: some View {
     Text(text)
       .font(.system(size: 70))
       .fontWeight(.bold)
+      .foregroundColor(Color(color))
   }
 }
 
@@ -54,7 +58,7 @@ struct TextView: View {
   var body: some View {
     VStack{
       RoundedeRectText(text: "Philippines")
-      MainText(text: "10:00 PM")
+      MainText(text: "10:00 PM", color: "TextColor")
       SmallText(text: "Greece")
     }
   }

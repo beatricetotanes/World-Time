@@ -9,18 +9,19 @@ import SwiftUI
 
 struct BackgroundView: View {
     var body: some View {
-      VStack{
-        HStack {
-          Spacer()
-          Button(action: {}) {
-            RoundedImageViewFilled(icon: "magnifyingglass")
+      ZStack {
+        VStack{
+          HStack {
+            Spacer()
+            Button(action: {}) {
+              RoundedImageViewFilled(icon: "magnifyingglass")
+            }
+              .padding(.trailing, 30)
           }
-            .padding(.trailing, 30)
+          Spacer()
         }
-        Spacer()
         Circle()
           .frame(width: 350, height: 350)
-        Spacer()
       }
     }
 }
