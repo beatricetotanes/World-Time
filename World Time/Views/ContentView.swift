@@ -8,15 +8,37 @@
 import SwiftUI
 
 struct ContentView: View {
+  @State private var city = "Manila, Philippines"
+  @State private var timeNow = ""
+  let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+  var timeFormatter: DateFormatter{
+    let fmtr = DateFormatter()
+    fmtr.dateFormat = "hh:mm:ss"
+    return fmtr
+  }
+  var dateFormatter: DateFormatter{
+    let fmtr = DateFormatter()
+    fmtr.dateFormat = "LLLL dd, yyyy"
+    return fmtr
+  }
+  @State private var date = ""
+  @State private var currDate = Date()
+  
   var body: some View {
     ZStack {
-      BackgroundView()
+      BackgroundView(city: $city, currDate: $currDate)
       VStack {
-        RoundedeRectText(text: "Philippines")
-        MainText(text: "10:00 PM", color: "TextColor")
+        RoundedeRectText(text: city)
+        MainText(text: timeNow, color: "TextColor")
+          .onReceive(timer, perform: { _ in
+            self.timeNow = timeFormatter.string(from: currDate)
+          })
           .padding(.top, 10)
           .padding(.bottom, 5)
-        SmallTextSemiBold(text: "January 18, 2022")
+        SmallTextSemiBold(text: date)
+          .onReceive(timer, perform: { _ in
+            self.date = dateFormatter.string(from: currDate)
+          })
       }
     }
   }

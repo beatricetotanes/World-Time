@@ -9,8 +9,9 @@ import SwiftUI
 
 struct LocationView: View {
   @Binding var locationViewIsShowing: Bool
+  @Binding var city: String
+  @Binding var currDate: Date
   
-  static private var text = Binding.constant("Philippines")
   var body: some View {
     ZStack {
       VStack {
@@ -31,14 +32,77 @@ struct LocationView: View {
         MainText(text: "Location", color: "TextColorLocationView")
           .padding(.leading, 20)
           .padding(.top, 80)
-        SearchBar(text: LocationView.text)
-          .padding(.bottom, 10)
-        CountryList()
+        LocationList()
         Spacer()
       }
     }
   }
 }
+
+
+struct LocationList: View {
+  //@Binding var city: String
+  //@Binding var currDate: Date
+  @ObservedObject var fetcher = GetLocationList()
+  @State private var text = ""
+  
+  private var countries = [
+    "Helsinki, Finland" : "Europe/Helsinki",
+    "Copenhagen, Denmark": "Europe/Copenhagen",
+    "Oslo, Norway": "Europe/Oslo",
+    "Brussels, Belgium": "Europe/Brussels",
+    "Stockholm, Sweden": "Europe/Stockholm",
+    "Zurich, Switzerland": "Europe/Zurich",
+    "Amsterdam, Netherlands": "Europe/Amsterdam",
+    "Paris, France": "Europe/Paris",
+    "Berlin, Germany": "Europe/Berlin",
+    "Tokyo, Japan": "Asia/Tokyo",
+    "London, United Kingdom": "Europe/London",
+    "Toronto, Canada": "America/Toronto",
+    "Seoul, South Korea": "Asia/Seoul",
+    "Los Angeles, United States": "America/Los_Angeles",
+    "Taipei, Taiwan": "Asia/Taipei",
+    "Vienna, Austria": "Europe/Vienna",
+    "Sydney, Australia": "Australia/Sydney",
+    "Dublin, Ireland": "Europe/Dublin",
+    "Singapore, Singapore": "Asia/Singapore",
+    "Madrid, Spain": "Europe/Madrid",
+    "Manila, Philippines": "Asia/Manila"
+  ]
+  
+  
+  var body: some View{
+    //let displayCities = Array(countries.keys).sorted()
+    
+    VStack {
+      SearchBar(text: $text)
+        .padding(.bottom, 10)
+      List {
+        ForEach(searchResults, id: \.self) {
+          myRow in
+          Button(action: {
+            
+          }) {
+            Text(myRow)
+            //.listStyle(Color(.black)) xcode13
+          }
+          
+        }
+      }
+    }
+  }
+  
+  var searchResults: [String] {
+    let displayCities = Array(countries.keys).sorted()
+    
+    if text.isEmpty {
+      return displayCities
+    } else {
+      return displayCities.filter{$0.contains(text)}
+    }
+  }
+}
+
 
 struct LocationPreview: View {
   static private var text = Binding.constant("Wut")
@@ -46,7 +110,7 @@ struct LocationPreview: View {
   
   var body: some View{
     VStack{
-      LocationView(locationViewIsShowing: LocationPreview.showing)
+      LocationView(locationViewIsShowing: LocationPreview.showing, city: .constant("Manila"), currDate: .constant(Date()))
       //SearchBar(text: LocationPreview.text)
     }
   }
@@ -89,37 +153,6 @@ struct SearchBar: View {
         .onTapGesture {
           isEditing = true
         }
-      //      if isEditing {
-      //        Button(action: {
-      //          isEditing = false
-      //          text = ""
-      //        }) {
-      //          Text("Cancel")
-      //        }
-      //        .padding(.leading, 20)
-      //        .transition(.move(edge: .trailing))
-      //        .animation(.default)
-      //      }
     }
-  }
-}
-
-struct CountryList: View {
-  private var countries = [
-    "Philippines", "America", "Mexico", "Philippines", "America", "Mexico", "Philippines", "America", "Mexico", "Philippines", "America", "Mexico", "Philippines", "America", "Mexico", "Philippines", "America", "Mexico", "Philippines", "America", "Mexico", "Philippines", "America", "Mexico", "Philippines", "America", "Mexico"
-  ]
-  
-  var body: some View{
-    List {
-      ForEach(countries, id: \.self) {
-        myRow in
-        Button(action: {}) {
-          Text(myRow)
-          //.listStyle(Color(.black)) xcode13
-        }
-        
-      }
-    }
-    .padding(.horizontal, 10)
   }
 }

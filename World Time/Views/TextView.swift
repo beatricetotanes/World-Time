@@ -16,7 +16,7 @@ struct RoundedeRectText: View {
       .overlay(
         RoundedRectangle(cornerRadius: 10)
           .strokeBorder(Color("StrokeColor"), lineWidth: 1.0)
-          .frame(width: 124, height: 39)
+          .frame(width: 250, height: 39)
       )
   }
 }
