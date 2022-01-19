@@ -8,15 +8,22 @@
 import SwiftUI
 
 struct BackgroundView: View {
+  @State private var locationViewIsShowing = false
+  
     var body: some View {
       ZStack {
         VStack{
           HStack {
             Spacer()
-            Button(action: {}) {
+            Button(action: {
+              locationViewIsShowing = true
+            }) {
               RoundedImageViewFilled(icon: "magnifyingglass")
             }
-              .padding(.trailing, 30)
+            .padding(.trailing, 30)
+            .padding(.top, 30)
+            .fullScreenCover(isPresented: $locationViewIsShowing,onDismiss: {},content:{ LocationView(locationViewIsShowing: $locationViewIsShowing)})
+//            .sheet(isPresented: $locationViewIsShowing, onDismiss: {}, content:{ LocationView(locationViewIsShowing: $locationViewIsShowing)})
           }
           Spacer()
         }

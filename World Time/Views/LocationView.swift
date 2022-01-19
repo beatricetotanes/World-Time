@@ -8,32 +8,45 @@
 import SwiftUI
 
 struct LocationView: View {
+  @Binding var locationViewIsShowing: Bool
+  
   static private var text = Binding.constant("Philippines")
   var body: some View {
-    VStack (alignment: .leading) {
-      HStack {
-        Spacer()
-        Button(action: {}) {
-          RoundedImageViewFilled(icon: "xmark")
+    ZStack {
+      VStack {
+        HStack {
+          Spacer()
+          Button(action: {
+            locationViewIsShowing = false
+          }) {
+            RoundedImageViewFilled(icon: "xmark")
+          }
+          .padding(.trailing, 30)
+          .padding(.top, 30)
         }
-        .padding(.trailing, 30)
+        Spacer()
+        //.padding(.to)
       }
-      MainText(text: "Location", color: "TextColorLocationView")
-        .padding(.leading, 20)
-      SearchBar(text: LocationView.text)
-        .padding(.bottom, 10)
-      CountryList()
-      Spacer()
+      VStack (alignment: .leading) {
+        MainText(text: "Location", color: "TextColorLocationView")
+          .padding(.leading, 20)
+          .padding(.top, 80)
+        SearchBar(text: LocationView.text)
+          .padding(.bottom, 10)
+        CountryList()
+        Spacer()
+      }
     }
   }
 }
 
 struct LocationPreview: View {
   static private var text = Binding.constant("Wut")
+  static private var showing = Binding.constant(true)
   
   var body: some View{
     VStack{
-      LocationView()
+      LocationView(locationViewIsShowing: LocationPreview.showing)
       //SearchBar(text: LocationPreview.text)
     }
   }
