@@ -32,7 +32,7 @@ struct LocationView: View {
         MainText(text: "Location", color: "TextColorLocationView")
           .padding(.leading, 20)
           .padding(.top, 80)
-        LocationList()
+        LocationList(city: $city, currDate: $currDate, locationViewIsShowing: $locationViewIsShowing)
         Spacer()
       }
     }
@@ -41,12 +41,12 @@ struct LocationView: View {
 
 
 struct LocationList: View {
-  //@Binding var city: String
-  //@Binding var currDate: Date
-  @ObservedObject var fetcher = GetLocationList()
+  @Binding var city: String
+  @Binding var currDate: Date
   @State private var text = ""
+  @Binding var locationViewIsShowing: Bool
   
-  private var countries = [
+  var countries = [
     "Helsinki, Finland" : "Europe/Helsinki",
     "Copenhagen, Denmark": "Europe/Copenhagen",
     "Oslo, Norway": "Europe/Oslo",
@@ -81,7 +81,9 @@ struct LocationList: View {
         ForEach(searchResults, id: \.self) {
           myRow in
           Button(action: {
-            
+            self.city = myRow
+            TimeFetcher(area: countries[myRow]!, currDate: $currDate)
+            locationViewIsShowing = false
           }) {
             Text(myRow)
             //.listStyle(Color(.black)) xcode13

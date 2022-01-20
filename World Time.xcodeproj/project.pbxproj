@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B0B70CC279946DB00EF5D50 /* TestTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0B70CB279946DB00EF5D50 /* TestTime.swift */; };
 		6B308EA32796C3580027BFCA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B308EA22796C3580027BFCA /* Constants.swift */; };
 		6B36CCD52796AC860012EC9C /* World_TimeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B36CCD42796AC860012EC9C /* World_TimeApp.swift */; };
 		6B36CCD72796AC860012EC9C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B36CCD62796AC860012EC9C /* ContentView.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B0B70CB279946DB00EF5D50 /* TestTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTime.swift; sourceTree = "<group>"; };
 		6B308EA22796C3580027BFCA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6B36CCD12796AC860012EC9C /* World Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "World Time.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B36CCD42796AC860012EC9C /* World_TimeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World_TimeApp.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 		6B36CCC82796AC860012EC9C = {
 			isa = PBXGroup;
 			children = (
+				6B0B70CB279946DB00EF5D50 /* TestTime.swift */,
 				6B36CCD32796AC860012EC9C /* World Time */,
 				6B36CCD22796AC860012EC9C /* Products */,
 			);
@@ -185,6 +188,7 @@
 				6B36CCD72796AC860012EC9C /* ContentView.swift in Sources */,
 				6BD9DAE22796C6DA00717F05 /* TextView.swift in Sources */,
 				6B6D2D942797FD14003286CC /* Provider.swift in Sources */,
+				6B0B70CC279946DB00EF5D50 /* TestTime.swift in Sources */,
 				6B7239CA2796D8DC003B9F41 /* LocationView.swift in Sources */,
 				6B36CCD52796AC860012EC9C /* World_TimeApp.swift in Sources */,
 				6B308EA32796C3580027BFCA /* Constants.swift in Sources */,

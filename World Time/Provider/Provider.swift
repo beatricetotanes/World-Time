@@ -47,25 +47,38 @@ struct TimeFormat: Decodable {
 class TimeFetcher: ObservableObject {
   // published variable is required
   // Whenever this variable changes, it's going to  publish it's new data so that a view that is subscribed to this ObservableObject can catch the data and show it in the view
-  @Published var posts: TimeFormat?
+  @State var posts: TimeFormat?
+  @Binding var currDate: Date
   var area: String
+  var date: Date
   
-  init(area: String) {
+  init(area: String, currDate: Binding<Date>) {
+    self.date = Date()
     self.area = area
+    self._currDate = currDate
     networking()
   }
   // Function for URL Session
   func networking() {
     let url = URL(string: "https://www.timeapi.io/api/Time/current/zone?timeZone=\(self.area)")!
+    var dateString: String = ""
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSS"
     
+    print(self.posts?.dateTime ?? "NULL")
     
     URLSession.shared.dataTask(with: url) { (data, response, error) in
       
       do {
         let tempPosts = try JSONDecoder().self.decode(TimeFormat.self, from: data!)
-        print(tempPosts)
+        print("temp: \(tempPosts)")
         DispatchQueue.main.async {
           self.posts = tempPosts
+          print("Datetime: \(self.posts?.dateTime ?? "")")
+          dateString = self.posts?.dateTime ?? ""
+          self.date = dateFormatter.date(from: dateString)!
+          print("Converted: \(self.date)")
+          self.currDate = self.date
         }
       }
       catch {
@@ -75,35 +88,36 @@ class TimeFetcher: ObservableObject {
     }.resume()
     
   }
-}
-
-class GetLocationList: ObservableObject {
-  // published variable is required
-  // Whenever this variable changes, it's going to  publish it's new data so that a view that is subscribed to this ObservableObject can catch the data and show it in the view
-  @Published var posts: [String]?
   
-  init() {
-    networking()
-  }
-  // Function for URL Session
-  func networking() {
-    let url = URL(string: "https://www.timeapi.io/api/TimeZone/AvailableTimeZones")!
-    
-    
-    URLSession.shared.dataTask(with: url) { (data, response, error) in
-      
-      do {
-        let tempPosts = try JSONDecoder().self.decode([String].self, from: data!)
-        print(tempPosts)
-        DispatchQueue.main.async {
-          self.posts = tempPosts
-        }
-      }
-      catch {
-        print("Error")
-      }
-      
-    }.resume()
-    
-  }
 }
+//
+//class GetLocationList: ObservableObject {
+//  // published variable is required
+//  // Whenever this variable changes, it's going to  publish it's new data so that a view that is subscribed to this ObservableObject can catch the data and show it in the view
+//  @Published var posts: [String]?
+//
+//  init() {
+//    networking()
+//  }
+//  // Function for URL Session
+//  func networking() {
+//    let url = URL(string: "https://www.timeapi.io/api/TimeZone/AvailableTimeZones")!
+//
+//
+//    URLSession.shared.dataTask(with: url) { (data, response, error) in
+//
+//      do {
+//        let tempPosts = try JSONDecoder().self.decode([String].self, from: data!)
+//        print(tempPosts)
+//        DispatchQueue.main.async {
+//          self.posts = tempPosts
+//        }
+//      }
+//      catch {
+//        print("Error")
+//      }
+//
+//    }.resume()
+//
+//  }
+//}

@@ -10,7 +10,11 @@ import SwiftUI
 struct ContentView: View {
   @State private var city = "Manila, Philippines"
   @State private var timeNow = ""
-  let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+  let timer = Timer.publish(
+    every: 1,
+    on: .main,
+    in: .common
+  ).autoconnect()
   var timeFormatter: DateFormatter{
     let fmtr = DateFormatter()
     fmtr.dateFormat = "hh:mm:ss"
@@ -18,7 +22,7 @@ struct ContentView: View {
   }
   var dateFormatter: DateFormatter{
     let fmtr = DateFormatter()
-    fmtr.dateFormat = "LLLL dd, yyyy"
+    fmtr.dateFormat = "MMMM dd, yyyy"
     return fmtr
   }
   @State private var date = ""
